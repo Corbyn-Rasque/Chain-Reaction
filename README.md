@@ -4,7 +4,6 @@
 
 Khushkaranpreet Singh Grewal\
 Corbyn Rasque\
-Anthony Thang\
 Elijah Villanueva
 
 """\
