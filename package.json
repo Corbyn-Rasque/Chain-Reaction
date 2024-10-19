@@ -1,0 +1,36 @@
+{
+  "name": "s.w.e.et-lists",
+  "version": "1.0.0",
+  "description": "A To-Do List for Software Engineers, by Software Engineers",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Corbyn-Rasque/S.W.E.ET-Lists.git"
+  },
+  "author": "Corbyn Rasque",
+  "contributors": [
+    {
+      "name": "Elijah Villanueva"
+    },
+    {
+      "name": "Khushkaranpreet Singh Grewal"
+    }
+  ],
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Corbyn-Rasque/S.W.E.ET-Lists/issues"
+  },
+  "homepage": "https://github.com/Corbyn-Rasque/S.W.E.ET-Lists#readme",
+  "devDependencies": {
+    "@eslint/js": "^9.13.0",
+    "eslint": "^9.13.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.2.1",
+    "eslint-plugin-react": "^7.37.1",
+    "globals": "^15.11.0",
+    "prettier": "^3.3.3"
+  }
+}
