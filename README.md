@@ -9,4 +9,10 @@ Elijah Villanueva
 
 """\
 [Style Guide Choice](https://airbnb.io/javascript/react/#alignment)
-"""
+
+IDE Setup Requirements:
+
+- Node Package Manager
+- Prettier
+- ESLint
+  """
