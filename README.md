@@ -1,17 +1,16 @@
 # CSC 307 To Do List Project "S.W.E.ET Lists"
 
-## Members (Team #6):
+## Members:
 
 Khushkaranpreet Singh Grewal\
 Corbyn Rasque\
 Elijah Villanueva
 
-"""\
-[Style Guide Choice](https://airbnb.io/javascript/react/#alignment)
+## Contributing:
+**Style Guide Choice:** [AirBnB](https://airbnb.io/javascript/react/)
 
-IDE Setup Requirements:
+**IDE Setup Requirements:**
 
 - Node Package Manager
 - Prettier
 - ESLint
-  """
