@@ -4,7 +4,7 @@
 
 Khushkaranpreet Singh Grewal\
 Corbyn Rasque\
-Elijah Villanueva
+Elijah Villanueva\
 Anthony Thang 
 
 ## Contributing:
