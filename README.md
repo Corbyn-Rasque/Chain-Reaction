@@ -5,6 +5,7 @@
 Khushkaranpreet Singh Grewal\
 Corbyn Rasque\
 Elijah Villanueva
+Anthony Thang 
 
 ## Contributing:
 **Style Guide Choice:** [AirBnB](https://airbnb.io/javascript/react/)
