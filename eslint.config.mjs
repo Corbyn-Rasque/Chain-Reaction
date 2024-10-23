@@ -5,7 +5,9 @@ import eslintConfigPrettier from "eslint-config-prettier";
 
 
 export default [
-  {files: ["**/*.{js,mjs,cjs,jsx}"]},
+  {
+    files: ["**/*.{js,mjs,cjs,jsx}"]
+  },
   pluginJs.configs.recommended,
   pluginReact.configs.flat.recommended,
   eslintConfigPrettier,
@@ -18,14 +20,14 @@ export default [
         ...globals.node
       }
     },
+    env: {
+      browser: true,
+      node: true,
+      es2021: true,
+    },
     rules: {
       "react/prop-types": 0,
       "react/react-in-jsx-scope": "off"
     }
   }
 ];
-
-// "extends":
-//       "eslint:recommended",
-//       "plugin:react/recommended",
-//       "plugin:prettier/recommended",
