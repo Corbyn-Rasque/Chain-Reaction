@@ -1,4 +1,4 @@
-# CSC 307 To Do List Project "S.W.E.ET Lists"
+# CSC 307 To Do List Project "Chain Reactors"
 
 ## Members:
 
