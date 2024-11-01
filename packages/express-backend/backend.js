@@ -10,16 +10,16 @@ app.use(express.json());
 const tasks ={
     tasks_list: [
         {
-            id: "abc123",
+            id: "1",
             task: "do homework",
-            link: "1",
-            category: "Sprint 1"
+            due_date: "10-31-2024",
+            topic: "Sprint 1"
         },
         {
-            id: "1",
-            task:"do next weeks homework",
-            link: "none",
-            category: "Sprint 1"
+            id: "2",
+            task: "do next week's homework",
+            due_date: "11-01-2024",
+            topic: "Sprint 1"
         }
     ]
 }
