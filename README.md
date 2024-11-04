@@ -1,4 +1,4 @@
-# CSC 307 To Do List Project "Chain Reactors"
+# CSC 307 To Do List Project – Chain Reaction
 
 ## Members:
 
