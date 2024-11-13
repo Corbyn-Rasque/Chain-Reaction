@@ -1,66 +1,97 @@
 // backend.js
-import express from "express";
+import express, { json } from "express"; //Is an ES module
+import cors from "cors";
+import taskServices from "./taskServices.js";
 
 const app = express();
 const port = 8001;
 
+app.use(cors()); //different ports, different origins
 app.use(express.json());
-
-//Temporary task data structure
-const tasks ={
-    tasks_list: [
-        {
-            id: "1",
-            task: "do homework",
-            due_date: "10-31-2024",
-            topic: "Sprint 1"
-        },
-        {
-            id: "2",
-            task: "do next week's homework",
-            due_date: "11-01-2024",
-            topic: "Sprint 1"
-        }
-    ]
-}
-
-
-// Get all tasks
-app.get("/tasks/", (req, res) => {
-  res.send(tasks);
-});
-
-
-// Adds tasks to tasks_list (no persistance since no db) 
-const addTask = (task) => {
-    tasks["tasks_list"].push(task);
-    return task;
-  };
-  app.post("/tasks", (req, res) => {
-    const taskToAdd = req.body;
-    addTask(taskToAdd);
-    res.send(201);
-  });
-
-
-  const findTaskById = (id) =>
-    tasks["tasks_list"].find((task) => task["id"] === id);
-
-
-// Delete task given a task id
-const deleteTask = (id) => {
-   let found = findTaskById(id)
-   const index = tasks["tasks_list"].indexOf(found)
-   tasks["tasks_list"].splice(index,1) // delete item from arrary
- };  
- app.delete("tasks/:id",(req, res) => {
-   const id = req.params["id"]
-   deleteTask(id)
-   res.send(204)
- });
 
 app.listen(port, () => {
   console.log(
     `Example app listening at http://localhost:${port}`
   );
 });
+
+//User get request with given query string
+app.get("/users", (req, res) => {
+  const name = req.query.name;
+  const job = req.query.job;
+  // Covers both query strings
+
+  userServices.getUsers(name, job)
+    .then((user) => {
+      if (user !== undefined){
+        res.send(user)
+      }
+    })
+    .catch((error) => {
+      console.log(error)
+    })
+}); 
+
+
+//Search by unique id
+app.get("/users/:id", (req, res) => {
+  const id = req.params["id"];
+  userServices.findUserById(id)
+    .then((result) => {
+      if (result === undefined) {
+        res.status(404).send("Resource not found.");
+      } else {
+        res.status(200).send(result);
+      }
+    })
+    .catch((error) => {
+      console.log(error)
+    })
+});
+
+
+app.post("/users", (req, res) => {
+  const userToAdd = req.body;
+  userServices.addUser(userToAdd)
+    .then((result) => {
+      if (result !== undefined){
+        res.status(201).json(result);
+      }
+    })
+    .catch((error) => {
+      console.log(error)
+    })
+  
+});
+
+
+  
+app.delete("/tasks/:id",(req, res) => {
+  const taskId = req.params["id"];
+  taskServices.deleteUser(id)
+    .then((result) => {
+      if (result === null){
+        res.status(404).send("User not Found")
+      } else {
+        res.status(204).send("No Content")
+      }
+    })
+  
+});
+
+
+
+// Get all current tasks
+app.get("/tasks", (req, res) => {
+  taskServices.getTasks()
+    .then((result) =>{
+      if (result === null){
+        res.status(204).send("No content")
+      } else {
+        console.log(result)
+        res.status(200).send(result)
+      }
+    })
+});
+
+

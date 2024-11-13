@@ -11,10 +11,11 @@ async function getTasks() {
       .from('tasks')
       .select('name')
   
-    if (error) {
+      if (error) {
       console.error('Error fetching tasks:', error);
     } else {
-      console.log('Tasks:', data);
+      // console.log('Tasks:', data);
+      return data
     }
   }
   
