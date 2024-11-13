@@ -1,0 +1,52 @@
+.content {
+  padding: 40px;
+  margin-left: 220px;
+  width: calc(100% - 220px);
+}
+
+.content h1 {
+  font-size: 32px;
+  margin-bottom: 20px;
+}
+
+.task-card {
+  background-color: #FFF;
+  border: 1px solid #DDD;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.task-card .header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.task-card h2 {
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.task-card .tag {
+  background-color: #BD8B13;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.task-card ul {
+  list-style: none;
+}
+
+.task-card ul li {
+  margin: 10px 0;
+  font-size: 16px;
+}
+
+.task-card ul li input[type="checkbox"] {
+  margin-right: 10px;
+}

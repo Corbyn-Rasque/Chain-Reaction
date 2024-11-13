@@ -1,0 +1,27 @@
+.sidebar {
+  width: 200px;
+  background-color: #154734;
+  color: white;
+  padding: 20px;
+  position: fixed;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+
+.sidebar h2 {
+  margin-bottom: 20px;
+  font-size: 24px;
+}
+
+.sidebar a {
+  display: block;
+  color: white;
+  text-decoration: none;
+  margin: 15px 0;
+  font-size: 18px;
+}
+
+.sidebar a.active {
+  text-decoration: underline;
+}
