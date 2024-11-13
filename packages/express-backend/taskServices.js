@@ -14,12 +14,52 @@ async function getTasks() {
       if (error) {
       console.error('Error fetching tasks:', error);
     } else {
-      // console.log('Tasks:', data);
       return data
     }
   }
-  
+
+async function addTask(taskToAdd) {
+    const {data, error} = await supabase
+      .from('tasks')
+      .insert(
+        [{name:taskToAdd.name}]
+      ); // should fit schema
+
+      if (error) {
+        console.error('Error adding task:', error);
+      } else {
+        return data
+        // Will return null
+      }
+} 
+
+async function deleteTask(taskId){
+    const {data, error} = await supabase
+      .from('tasks')
+      .delete()
+      .eq('id', taskId); //"where value =" clause
+    if (error) {
+      console.error('Error deleting task:', error)
+    } else {
+      return "success"
+    }
+}
+
+async function updateTask(taskId, updates){
+    const {data, error} = await supabase
+      .from('tasks')
+      .update({name: updates.name})
+      .eq('id', taskId);
+    if (error) {
+      console.error('Error updating task:', error)
+    } else {
+      return "success"
+    }
+}
 
 export default{
-    getTasks
+    getTasks,
+    addTask,
+    deleteTask,
+    updateTask
 }
