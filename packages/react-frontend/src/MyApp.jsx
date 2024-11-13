@@ -6,9 +6,6 @@ import Form from "./Form"; //Needs to be after table
 
 function MyApp() {
   const [characters, setCharacters] = useState([]);  
-
- 
-
   function updateList(person) {
     postUser(person) //Contains the promise
       .then((res) => {
