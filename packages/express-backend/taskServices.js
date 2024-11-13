@@ -1,36 +1,73 @@
 // IMPLEMENT DATABASE FUNCTIONS HERE
 
 import { createClient } from '@supabase/supabase-js';
+import dotenv from 'dotenv'
+
+dotenv.config();
 
 const supabaseUrl = 'https://dqijcwjgiqsztedamstr.supabase.co'
-const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRxaWpjd2pnaXFzenRlZGFtc3RyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzA3NDEwOTYsImV4cCI6MjA0NjMxNzA5Nn0.QQcifD-QvG5_WBWAdunp_mGz7SqNerzKs3yoCYhN8cU'
+const supabaseKey = process.env.SUPABASE_API_KEY;
 const supabase = createClient(supabaseUrl, supabaseKey);
 
-async function getTasks() {
-    const { data, error } = await supabase
-      .from('tasks')
-      .select('name')
-  
-      if (error) {
-      console.error('Error fetching tasks:', error);
-    } else {
-      return data
-    }
+
+async function get_user_domains(user_id, level) {
+  const { data, error } = await supabase
+    .rpc('get_domains_by_level', { userid: user_id, domain_level: level });
+
+  if (error) {
+    console.error('Error fetching Domains:', error);
+  } else {
+    return data;
   }
+}
+
+async function get_tasks_by_domain(domain) {
+  const { data, error } = await supabase
+    .rpc('get_tasks_by_domain', { domain: domain});
+
+  if (error) {
+    console.error('Error fetching Tasks:', error);
+  } else {
+    return data;
+  }
+}
+
+async function get_list_items_by_task(task) {
+  const { data, error } = await supabase
+    .rpc('get_list_items_by_task', { task: task });
+
+    if (error) {
+      console.error('Error fetching List Items:', error);
+    } else {
+      return data;
+    }
+}
+
+async function getTasks() {
+  const { data, error } = await supabase
+    .from('tasks')
+    .select('name')
+
+    if (error) {
+    console.error('Error fetching tasks:', error);
+  } else {
+    return data
+  }
+}
 
 async function addTask(taskToAdd) {
-    const {data, error} = await supabase
-      .from('tasks')
-      .insert(
-        [{name:taskToAdd.name}]
-      ); // should fit schema
+  const {data, error} = await supabase
+    .from('tasks')
+    .insert(
+      [{name:taskToAdd.name}]
+    ); // should fit schema
 
-      if (error) {
-        console.error('Error adding task:', error);
-      } else {
-        return data
-        // Will return null
-      }
+    if (error) {
+      console.error('Error adding task:', error);
+    } else {
+      return data
+      // Will return null
+    }
 } 
 
 async function deleteTask(taskId){
@@ -61,5 +98,8 @@ export default{
     getTasks,
     addTask,
     deleteTask,
-    updateTask
+    updateTask,
+    get_user_domains,
+    get_tasks_by_domain,
+    get_list_items_by_task
 }

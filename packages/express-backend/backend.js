@@ -4,7 +4,7 @@ import cors from "cors";
 import taskServices from "./taskServices.js";
 
 const app = express();
-const port = 8001;
+const port = 8004;
 
 app.use(cors()); //different ports, different origins
 app.use(express.json());
@@ -13,6 +13,55 @@ app.listen(port, () => {
   console.log(
     `Example app listening at http://localhost:${port}`
   );
+});
+
+// Gets all Domains by level in the Domain tree.
+app.get("/users/:user/domains/:level?", (req, res) => {
+  const user = req.params["user"];
+  const { level } = req.query;
+
+  taskServices.get_user_domains(user, level)
+    .then((result) => {
+      if (result === null) {
+        res.status(204).send("No Domains");
+      } else {
+        console.log(result);
+        res.status(200).send(result);
+      }
+    });
+});
+
+// Get Task List Items by Task ID
+app.get("/users/:user/tasks/:task", (req, res) => {
+  const user = req.params["user"];
+  const task = req.params["task"];
+  const { domain } = req.query;
+
+  taskServices.get_list_items_by_task(task)
+    .then((result) => {
+      if (result === null) {
+        res.status(204).send("No List Items");
+      } else {
+        console.log(result);
+        res.status(200).send(result);
+      }
+    });
+});
+
+// Get User Tasks by Domain ID
+app.get("/users/:user/tasks/:domain?", (req, res) => {
+  const user = req.params["user"];
+  const { domain } = req.query;
+
+  taskServices.get_tasks_by_domain(domain)
+    .then((result) => {
+      if (result === null) {
+        res.status(204).send("No Tasks");
+      } else {
+        console.log(result);
+        res.status(200).send(result);
+      }
+    });
 });
 
 // Get all current tasks
