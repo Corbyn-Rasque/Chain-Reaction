@@ -1,5 +1,6 @@
+/* eslint-disable no-unused-vars */
 // src/MyApp.jsx (Empty State)
-// eslint-disable-next-line no-unused-vars
+// eslint-disable no-unused-vars
 import React, {useState,useEffect} from "react";
 import Table from "./table";
 import Form from "./Form"; //Needs to be after table
