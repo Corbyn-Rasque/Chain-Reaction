@@ -1,21 +1,9 @@
-/* eslint-disable no-unused-vars */
-// import { StrictMode } from 'react'
-// import { createRoot } from 'react-dom/client'
-// import './index.css'
-// import App from './App.jsx'
-
-// createRoot(document.getElementById('root')).render(
-//   <StrictMode>
-//     <App />
-//   </StrictMode>,
-// )
-
-
 // src/main.jsx
+// eslint-disable-next-line no-unused-vars
 import React from "react";
 import ReactDOMClient from "react-dom/client";
-import MyApp from "./myApp"; //Imports the MyApp component from the seperate file (Vite converts to JS)
-import "./main.css";
+import App from "./App"; //Imports the MyApp component from the seperate file (Vite converts to JS)
+// import "./main.css";
 
 
 // Create the container
@@ -25,4 +13,4 @@ const container = document.getElementById("root");
 const root = ReactDOMClient.createRoot(container);
 
 // Initial render: Render an element to the Root
-root.render(<MyApp />);
+root.render(<App />);
