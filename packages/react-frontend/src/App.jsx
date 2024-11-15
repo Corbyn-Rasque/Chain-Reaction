@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+ 
+import React, { useEffect, useState } from 'react';
 import Sidebar from './Sidebar';
 import Content from './Content';
 import Login from "./Login";
@@ -28,6 +29,31 @@ function App() {
             )}
         </div>
     );
+    const[tasks, setTasks] = useState([]);
+
+    function fetchTask(){
+        const promise = fetch("http://localhost:8004/tasks")
+        return promise
+    }
+
+
+    // fetch tasks from backend and load into state
+    useEffect(() => {
+        fetchTask()
+            .then((res)=> res.json())
+            .then((json) => setTasks(json))
+            .catch((error) => {console.log(error);});
+    },[]);
+
+    
+    
+    // Returns to display
+    return (
+        <div className="app">
+            <Sidebar />
+            <Content 
+                taskData = {tasks}
+            />
 }
 
 export default App;

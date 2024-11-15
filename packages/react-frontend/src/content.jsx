@@ -1,12 +1,26 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/jsx-key */
+/* eslint-disable react/prop-types */
+// eslint-disable-next-line no-unused-vars
 import React from 'react';
 import './Content.css';
 
-function Content() {
+function Content(props) {
+     const tasks = props.taskData || []; // Use an empty array if tasks is undefined
+
     return (
         <div className="content">
             <h1>Today's Tasks</h1>
-            
+            {tasks.map((task, index) => (
+                <TaskCard
+                    key = {index}
+                    title="CSC 307"
+                    tag = "Test"
+                    tasks={[task.name]}
+                />
+            ))}
             <TaskCard
+                key = "1000"
                 title="CSC 307 — Intro to Software Engineering"
                 tag="Sprint 1"
                 tasks={[
@@ -14,7 +28,9 @@ function Content() {
                     "Independent Assignment 5: Unit Testing w/ Jest",
                 ]}
             />
+
             <TaskCard
+                key = "1001"
                 title="CSC 365 — Intro to Databases"
                 tag="Group Project - Version 1"
                 tasks={[
@@ -24,6 +40,7 @@ function Content() {
                 ]}
             />
             <TaskCard
+                key = "1002"
                 title="CSC 357 - Systems Programming"
                 tag="Week 5"
                 tasks={[
@@ -31,19 +48,12 @@ function Content() {
                     "Potion Shop: Version 4 Due (Ledgers)",
                 ]}
             />
-            <TaskCard
-                title="PHIL 323 - Ethics, Science & Technology"
-                tag="Week 5"
-                tasks={[
-                    "Group Project : Version 1 Due",
-                    "Potion Shop: Version 4 Due (Ledgers)",
-                ]}
-            />
+            
         </div>
     );
 }
 
-function TaskCard({ title, tag, tasks }) {
+function TaskCard({ key, title, tag, tasks }) {
     return (
         <div className="task-card">
             <div className="header">
@@ -62,3 +72,5 @@ function TaskCard({ title, tag, tasks }) {
 }
 
 export default Content;
+
+

@@ -124,20 +124,3 @@ app.post("/tasks/:id",(req,res) => {
 })
 
 
-// //User get request with given query string
-// app.get("/users", (req, res) => {
-//   const name = req.query.name;
-//   const job = req.query.job;
-//   // Covers both query strings
-
-//   userServices.getUsers(name, job)
-//     .then((user) => {
-//       if (user !== undefined){
-//         res.send(user)
-//       }
-//     })
-//     .catch((error) => {
-//       console.log(error)
-//     })
-// }); 
-

@@ -1,0 +1,34 @@
+<TaskCard
+                title="CSC 307 — Intro to Software Engineering"
+                tag="Sprint 1"
+                tasks={[
+                    "Team Assignment 2: UI Prototyping & Storyboard",
+                    "Independent Assignment 5: Unit Testing w/ Jest",
+                ]}
+            />
+
+<TaskCard
+                title="CSC 365 — Intro to Databases"
+                tag="Group Project - Version 1"
+                tasks={[
+                    "Group Project : Version 1 Due",
+                    "Potion Shop: Version 4 Due (Ledgers)",
+                    "Quiz 6: Entity Relations",
+                ]}
+            />
+            <TaskCard
+                title="CSC 357 - Systems Programming"
+                tag="Week 5"
+                tasks={[
+                    "Group Project : Version 1 Due",
+                    "Potion Shop: Version 4 Due (Ledgers)",
+                ]}
+            />
+            <TaskCard
+                title="PHIL 323 - Ethics, Science & Technology"
+                tag="Week 5"
+                tasks={[
+                    "Group Project : Version 1 Due",
+                    "Potion Shop: Version 4 Due (Ledgers)",
+                ]}
+            />
