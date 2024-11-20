@@ -4,8 +4,10 @@
   "description": "A To-Do List for Software Engineers, by Software Engineers",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "format": "prettier --write './**/*.{js,jsx,ts,tsx,css,md,json}' --config ./.prettierrc"
+    "test": "echo \"Error: no test specified\"",
+    "format": "prettier --write './**/*.{js,jsx,ts,tsx,css,md,json}' --config ./.prettierrc",
+    "dev": "nodemon -w express-backend backend.js",
+    "start": "node -w express-backend backend.js"
   },
   "repository": {
     "type": "git",
@@ -39,6 +41,7 @@
   ],
   "dependencies": {
     "@supabase/supabase-js": "^2.46.1",
-    "dotenv": "^16.4.5"
+    "dotenv": "^16.4.5",
+    "nodemon": "^3.1.7"
   }
 }
