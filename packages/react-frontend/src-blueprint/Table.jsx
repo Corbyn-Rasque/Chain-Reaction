@@ -17,7 +17,7 @@ function TableHeader() {
   }
   
 function TableBody(props) {
-    // eslint-disable-next-line react/prop-types
+     
     const rows = props.characterData.map((row, index) => {
       return (
         <tr key={index}>
