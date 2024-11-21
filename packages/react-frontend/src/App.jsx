@@ -33,7 +33,7 @@ function App() {
     const[tasks, setTasks] = useState([]);
 
     function fetchTask(){
-        const promise = fetch("http://chainreaction-dychaqbqbngjdddg.westus3-01.azurewebsites.net/tasks")
+        const promise = fetch("https://chainreaction-dychaqbqbngjdddg.westus3-01.azurewebsites.net/tasks")
         return promise
     }
 
