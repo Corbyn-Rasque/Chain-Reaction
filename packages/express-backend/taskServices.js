@@ -1,5 +1,3 @@
-// IMPLEMENT DATABASE FUNCTIONS HERE
-
 import { createClient } from '@supabase/supabase-js';
 import dotenv from 'dotenv'
 
@@ -10,7 +8,18 @@ const supabaseKey = process.env.SUPABASE_API_KEY;
 const supabase = createClient(supabaseUrl, supabaseKey);
 
 
-async function get_user_domains(user_id, level) {
+// User
+async function add_user(email, password) { return; }
+async function update_email(user_id, email) { return; }
+async function update_password(user_id, password) { return; }
+
+// User Domains
+async function get_user_domains(user_id) { return domain_obj_list; }
+async function add_user_domain(user_id, domain) { return; }
+async function remove_user_domain(user_id, domain) { return; }
+
+// Domains
+async function get_domains_by_level(user_id, level) {
   const { data, error } = await supabase
     .rpc('get_domains_by_level', { userid: user_id, domain_level: level });
 
@@ -20,8 +29,7 @@ async function get_user_domains(user_id, level) {
     return data;
   }
 }
-
-async function get_tasks_by_domain(domain) {
+async function get_tasks(domain) {
   const { data, error } = await supabase
     .rpc('get_tasks_by_domain', { domain: domain});
 
@@ -31,7 +39,18 @@ async function get_tasks_by_domain(domain) {
     return data;
   }
 }
+async function add_domain(user_id, domain_obj_w_relation) { return; }
+async function update_domain(user_id, domain_obj) { return; }
+async function remove_domain(user_id, domain_id) { return; }
 
+// Domain Tasks
+async function add_domain_task(domain_id) { return tasks_obj; }
+async function remove_domain_task(domain_id, task_id) { return; }
+
+// Tasks
+async function add_task(task_obj, domain_id) { return; }
+async function update_task(task_id) { return; }
+async function remove_task(task_id) { return; } // Make sure domain_tasks entry is also removed.
 async function get_list_items_by_task(task) {
   const { data, error } = await supabase
     .rpc('get_list_items_by_task', { task: task });
@@ -43,63 +62,36 @@ async function get_list_items_by_task(task) {
     }
 }
 
-async function getTasks() {
-  const { data, error } = await supabase
-    .from('tasks')
-    .select('name')
+// Schedule
+async function add_free_time(schedule_obj) { return; }
+async function update_free_time(schedule_obj) { return; }
+async function remove_free_time(schedule_obj) { return; }
 
-    if (error) {
-    console.error('Error fetching tasks:', error);
-  } else {
-    return data
-  }
-}
-
-async function addTask(taskToAdd) {
-  const {data, error} = await supabase
-    .from('tasks')
-    .insert(
-      [{name:taskToAdd.name}]
-    ); // should fit schema
-
-    if (error) {
-      console.error('Error adding task:', error);
-    } else {
-      return data
-      // Will return null
-    }
-} 
-
-async function deleteTask(taskId){
-    const {data, error} = await supabase
-      .from('tasks')
-      .delete()
-      .eq('id', taskId); //"where value =" clause
-    if (error) {
-      console.error('Error deleting task:', error)
-    } else {
-      return "success"
-    }
-}
-
-async function updateTask(taskId, updates){
-    const {data, error} = await supabase
-      .from('tasks')
-      .update({name: updates.name})
-      .eq('id', taskId);
-    if (error) {
-      console.error('Error updating task:', error)
-    } else {
-      return "success"
-    }
-}
 
 export default{
-    getTasks,
-    addTask,
-    deleteTask,
-    updateTask,
-    get_user_domains,
-    get_tasks_by_domain,
-    get_list_items_by_task
+  add_user,
+  update_email,
+  update_password,
+
+  get_user_domains,
+  add_user_domain,
+  remove_user_domain,
+
+  get_domains_by_level,
+  get_tasks,
+  add_domain,
+  update_domain,
+  remove_domain,
+
+  add_domain_task,
+  remove_domain_task,
+
+  add_task,
+  update_task,
+  remove_task,
+  get_list_items_by_task,
+
+  add_free_time,
+  update_free_time,
+  remove_free_time
 }
