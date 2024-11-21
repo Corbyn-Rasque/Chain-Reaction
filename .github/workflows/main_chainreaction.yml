@@ -35,7 +35,8 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: node-app
-          path: release.zip
+          path: ./packages/express-backend/build
+          retention-days: 30 days
 
   deploy:
     runs-on: ubuntu-latest
