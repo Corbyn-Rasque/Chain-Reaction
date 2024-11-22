@@ -1,17 +1,15 @@
-import { createClient } from '@supabase/supabase-js';
 import dotenv from 'dotenv'
+import pg from 'pg'
 
 dotenv.config();
-
-const supabaseUrl = 'https://dqijcwjgiqsztedamstr.supabase.co'
-const supabaseKey = process.env.SUPABASE_API_KEY;
-const supabase = createClient(supabaseUrl, supabaseKey);
-
+const { Pool, Client } = pg
+const connectionString = process.env.POSTGRES_URI;
+const db = new Pool({ connectionString, })
 
 // User
 async function add_user(email, password) { return; }
-async function update_email(user_id, email) { return; }
-async function update_password(user_id, password) { return; }
+async function update(user_id, email, password) { return; }
+
 
 // User Domains
 async function get_user_domains(user_id) { return domain_obj_list; }
@@ -24,7 +22,7 @@ async function get_domains_by_level(user_id, level) {
     .rpc('get_domains_by_level', { userid: user_id, domain_level: level });
 
   if (error) {
-    console.error('Error fetching Domains:', error);
+    console.error('Error fetching domains:', error);
   } else {
     return data;
   }
@@ -34,7 +32,7 @@ async function get_tasks(domain) {
     .rpc('get_tasks_by_domain', { domain: domain});
 
   if (error) {
-    console.error('Error fetching Tasks:', error);
+    console.error('Error fetching tasks:', error);
   } else {
     return data;
   }
@@ -56,7 +54,7 @@ async function get_list_items_by_task(task) {
     .rpc('get_list_items_by_task', { task: task });
 
     if (error) {
-      console.error('Error fetching List Items:', error);
+      console.error('Error fetching list items:', error);
     } else {
       return data;
     }
@@ -70,8 +68,7 @@ async function remove_free_time(schedule_obj) { return; }
 
 export default{
   add_user,
-  update_email,
-  update_password,
+  update,
 
   get_user_domains,
   add_user_domain,
