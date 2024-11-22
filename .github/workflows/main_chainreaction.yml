@@ -23,6 +23,8 @@ jobs:
           node-version: '20.x'
 
       - name: npm install, build, and test
+        env: 
+          SUPABASE_API_KEY: ${{ secrets.SUPABASE_API_KEY }}
         run: |
           npm install --workspaces=false
           npm run -w express-backend build --if-present
