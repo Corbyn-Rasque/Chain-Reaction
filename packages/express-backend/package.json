@@ -7,8 +7,7 @@
     "test": "echo \"Error: no test specified\"",
     "format": "prettier --write './**/*.{js,jsx,ts,tsx,css,md,json}' --config ./.prettierrc",
     "lint": "eslint .",
-    "dev": "node backend.js",
-    "build": "node backend.js"
+    "dev": "node backend.js"
   },
   "author": "",
   "license": "ISC",
