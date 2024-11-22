@@ -1,0 +1,57 @@
+# Endpoint Testing
+
+## Users
+
+### Add User
+#### Request
+```BASH
+curl -X POST -H "Content-Type: application/json" -d \
+    '{"email":"camdyn@rasque.org", "password":"complexpasswordstaplerfahrer"}' \
+    http://localhost:8004/users
+```
+
+#### Response
+**IF NEW:**
+```JSON
+1
+```
+**IF ALREADY REGISTERED:**
+```JSON
+null
+```
+### Update Email
+#### Request
+```BASH
+curl -X POST -H "Content-Type: application/json" -d \
+    '{"email":"camdyn@rasque.co"}' \
+    http://localhost:8004/users/2
+```
+
+#### Response
+```JSON
+
+```
+### Update Password
+#### Request
+```BASH
+
+```
+
+#### Response
+```JSON
+
+```
+
+## User Domains
+
+###
+###
+###
+
+## Domains
+
+## Tasks
+
+## List Items
+
+## Schedule
