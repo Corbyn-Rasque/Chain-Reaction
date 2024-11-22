@@ -19,7 +19,7 @@ curl -X POST -H "Content-Type: application/json" -d \
 ```JSON
 null
 ```
-### Update Email
+### Update [ Email ]
 #### Request
 ```BASH
 curl -X POST -H "Content-Type: application/json" -d \
@@ -31,7 +31,7 @@ curl -X POST -H "Content-Type: application/json" -d \
 ```JSON
 
 ```
-### Update Password
+### Update [ Password ]
 #### Request
 ```BASH
 
@@ -44,14 +44,214 @@ curl -X POST -H "Content-Type: application/json" -d \
 
 ## User Domains
 
-###
-###
-###
+### Add User Domain
+#### Request
+```BASH
+
+```
+
+#### Response
+```JSON
+
+```
+### Update User Domain
+#### Request
+```BASH
+
+```
+
+#### Response
+```JSON
+
+```
+### Remove User Domain
+#### Request
+```BASH
+
+```
+
+#### Response
+```JSON
+
+```
 
 ## Domains
 
+### Get Domains By Level
+#### Request
+```BASH
+
+```
+
+#### Response
+```JSON
+
+```
+### Get Tasks
+#### Request
+```BASH
+
+```
+
+#### Response
+```JSON
+
+```
+### Add Domain
+#### Request
+```BASH
+
+```
+
+#### Response
+```JSON
+
+```
+### Update Domain
+#### Request
+```BASH
+
+```
+
+#### Response
+```JSON
+
+```
+### Remove Domain
+#### Request
+```BASH
+
+```
+
+#### Response
+```JSON
+
+```
+
+## Domain Tasks
+### Add Domain Task
+#### Request
+```BASH
+
+```
+
+#### Response
+```JSON
+
+```
+### Remove Domain Task
+#### Request
+```BASH
+
+```
+
+#### Response
+```JSON
+
+```
+
 ## Tasks
+### Add Task
+#### Request
+```BASH
+
+```
+
+#### Response
+```JSON
+
+```
+### Update Task
+#### Request
+```BASH
+
+```
+
+#### Response
+```JSON
+
+```
+### Remove Task
+#### Request
+```BASH
+
+```
+
+#### Response
+```JSON
+
+```
+### Get List Items By Task
+#### Request
+```BASH
+
+```
+
+#### Response
+```JSON
+
+```
 
 ## List Items
+### Add List Item
+#### Request
+```BASH
+
+```
+
+#### Response
+```JSON
+
+```
+### Update List Item
+#### Request
+```BASH
+
+```
+
+#### Response
+```JSON
+
+```
+### Remove List Item
+#### Request
+```BASH
+
+```
+
+#### Response
+```JSON
+
+```
 
 ## Schedule
+### Add Free Time
+#### Request
+```BASH
+
+```
+
+#### Response
+```JSON
+
+```
+### Update Free Time
+#### Request
+```BASH
+
+```
+
+#### Response
+```JSON
+
+```
+### Remove Free Time
+#### Request
+```BASH
+
+```
+
+#### Response
+```JSON
+
+```
