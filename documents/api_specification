@@ -1,0 +1,44 @@
+# Chain Reaction API Specification
+
+## Users
+
+### Add User
+### Update
+
+## User Domains
+
+### Add User Domain
+### Update User Domain
+### Remove User Domain
+
+## Domains
+
+### Get Domains By Level
+### Get Tasks
+### Add Domain
+### Update Domain
+### Remove Domain
+
+## Domain Tasks
+
+### Add Domain Task
+### Remove Domain Task
+
+## Tasks
+
+### Add Task
+### Update Task
+### Remove Task
+### Get List Items By Task
+
+## List Items
+
+### Add List Item
+### Update List Item
+### Remove List Item
+
+## Schedule
+
+### Add Free Time
+### Update Free Time
+### Remove Free Time
