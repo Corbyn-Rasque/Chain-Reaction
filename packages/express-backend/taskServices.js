@@ -332,9 +332,54 @@ async function get_list_items_by_task(task_id) {
 
 
 // List Items
-async function add_list_item() {}
-async function update_list_item() {}
-async function remove_list_item() {}
+async function add_list_item(task_id, list_item) {
+  const query =  'INSERT INTO list_items (task_id, name, completed) \
+                  VALUES ($1, $2, FALSE) \
+                  RETURNING id'
+
+  try {
+    const res = await db.query(query, [task_id, list_item.name]);
+
+    if (res.rowCount) { true; }
+    else { return false; }
+  }
+  catch (error) {
+    console.error('Error adding list item:', error);
+  }
+}
+async function update_list_item(list_item_id, updated_list_item) {
+  const query =  'UPDATE list_items \
+                  SET name = COALESCE($2, name), completed = COALESCE($3, completed) \
+                  WHERE id = $1 AND ROW(COALESCE($2, name), COALESCE($3, completed)) \
+                                    IS DISTINCT FROM \
+                                    ROW(name, completed)';
+
+  try {
+    const res = await db.query(query, [list_item_id,
+                                       updated_list_item.name,
+                                       updated_list_item.completed]);
+
+    if (res.rowCount) { return true; }
+    else { return false; }
+  }
+  catch (error) {
+    console.error('Error updating list item:', error);
+  }
+}
+async function remove_list_item(list_item_id) {
+  const query =  'DELETE FROM list_items \
+                  WHERE id = $1';
+
+  try {
+    const res = await db.query(query, [list_item_id])
+
+    if (res.rowCount) { return true; }
+    else { return false; }
+  }
+  catch(error) {
+    console.error('Error removing list item:', error);
+  }
+}
 
 
 // Schedule
