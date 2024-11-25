@@ -3,7 +3,31 @@
 ## Users
 
 ### Add User
+#### Request
+```JSON
+{
+    "email":    "string",
+    "password": "string"
+}
+```
+#### Response
+```JSON
+{
+    "id": "number"
+}
+```
+
 ### Update
+#### Request
+```JSON
+{
+    
+}
+```
+#### Response
+```JSON
+
+```
 
 ## User Domains
 
