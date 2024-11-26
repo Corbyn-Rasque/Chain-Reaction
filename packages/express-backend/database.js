@@ -6,6 +6,7 @@ const { Pool, Client } = pg
 const connectionString = process.env.POSTGRES_URI;
 const db = new Pool({ connectionString, })
 
+
 // User
 async function get_user(user) {
   const query =  'SELECT id \
@@ -30,7 +31,7 @@ async function add_user(user) {
   try {
     const id = await db.query(query, [user.email, user.password])
     if (id.rowCount) { return id.rows; }
-    else { return {"id": null}}; 
+    else { return false}; 
   }
   catch (error) {
     console.error('Error adding user:', error);
@@ -84,7 +85,7 @@ async function get_user_domains(user_id) {
     console.error('Error fetching domains:', error);
   }
 }
-async function add_user_domain(user_id) {
+async function add_user_domain(user_id, domain) {
   const query =  'WITH new_domain AS (INSERT INTO domains (name, "end") \
                                       VALUES($2, $3) \
                                       RETURNING id) \
@@ -102,17 +103,11 @@ async function add_user_domain(user_id) {
     console.error('Error adding domain:', error);
   }
 }
-async function update_user_domain(domain_id, domain) {
-  update_domain(domain_id, domain);
-}
-async function remove_user_domain(domain_id) {
-  remove_domain(domain_id);
-}
 
 
 // Domains
 async function get_domains_by_user_domain(user_domain_id) {
-  const query =  'SELECT name, "end" \
+  const query =  'SELECT id, name, "end" \
                   FROM domain_relations \
                   JOIN domains ON domains.id = domain_relations.child_id \
                   WHERE domain_relations.parent_id = $1'
@@ -169,8 +164,8 @@ async function update_domain(domain_id, domain) {
 
   try {
     const res = await db.query(query, [domain_id, domain.name, domain.end])
-    if (res.rowCount) { return true; }
-    else { return false; }
+    if (res.rowCount) { return res.rowCount; }
+    else { return res.rowCount; }
   }
   catch (error) {
     console.error('Error updating domain:', error);
@@ -202,6 +197,15 @@ async function add_task(domain_id, task, group, order) {
                       FROM new_group \
                       RETURNING id';
 
+  const cur_group =  'INSERT INTO tasks ("group", "order", \
+                                          name, notes, "do", due, completed) \
+                      SELECT $1, (SELECT MAX("order") + 1 \
+                                  FROM tasks \
+                                  GROUP BY "group" \
+                                  HAVING "group" = $1 \
+                                  LIMIT 1), $2, $3, $4, $5, $6 \
+                      RETURNING id';
+
   const ordering = 'UPDATE tasks \
                     SET "order" = "order" + 1 \
                     WHERE "group" = $1 AND "order" >= $2';
@@ -212,15 +216,21 @@ async function add_task(domain_id, task, group, order) {
 
   try{
     var res, res1;
-    if (!group || !order) {
+    if (!group && !order) {
       res = await db.query(new_group, [domain_id,
                                        task.name, task.notes,
                                        task.do, task.due,
                                        task.completed]);
       res = res.rowCount
     }
+    else if (!order) {
+      res = await db.query(cur_group, [group,
+                                       task.name, task.notes,
+                                       task.do, task.due,
+                                       task.completed]);
+    }
     else {
-      res = await db.query(ordering, [group, order])
+      res = await db.query(ordering, [group, order]);
       res1 = await db.query(insert,  [group, order,
                                       task.name, task.notes,
                                       task.do, task.due,
@@ -340,7 +350,7 @@ async function add_list_item(task_id, list_item) {
   try {
     const res = await db.query(query, [task_id, list_item.name]);
 
-    if (res.rowCount) { true; }
+    if (res.rowCount) { return true; }
     else { return false; }
   }
   catch (error) {
@@ -383,9 +393,10 @@ async function remove_list_item(list_item_id) {
 
 
 // Schedule
-async function add_free_time(schedule_obj) { return; }
-async function update_free_time(schedule_obj) { return; }
-async function remove_free_time(schedule_obj) { return; }
+async function get_free_time(user_id){ return; }
+async function add_free_time(user_id, schedule) { return; }
+async function update_free_time(schedule_id, schedule) { return; }
+async function remove_free_time(schedule_id) { return; }
 
 
 export default{
@@ -396,8 +407,6 @@ export default{
 
   get_user_domains,
   add_user_domain,
-  update_user_domain,
-  remove_user_domain,
 
   get_domains_by_user_domain,
   get_tasks,
@@ -414,6 +423,7 @@ export default{
   update_list_item,
   remove_list_item,
 
+  get_free_time,
   add_free_time,
   update_free_time,
   remove_free_time
