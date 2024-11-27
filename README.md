@@ -4,7 +4,7 @@
 
 Corbyn Rasque\
 Elijah Villanueva\
-Khushkaranpreet Singh Grewal\
+Khushkaranpreet Singh Grewal
 
 ## Contributing:
 **Style Guide Choice:** [AirBnB](https://airbnb.io/javascript/react/)
