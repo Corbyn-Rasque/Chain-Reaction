@@ -6,7 +6,7 @@ import React from 'react';
 import './Content.css';
 
 function Content(props) {
-     const tasks = props.taskData || []; // Use an empty array if tasks is undefined
+     const tasks = props.taskData || []; // Use an empty array if tasks is undefined (can happen when not authed)
 
     return (
         <div className="content">

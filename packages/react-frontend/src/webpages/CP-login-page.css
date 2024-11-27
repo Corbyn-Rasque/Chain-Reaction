@@ -47,6 +47,12 @@ body {
     font-size: 24px;
 }
 
+.login-container h3 {
+    margin-top: 20px;
+    color: #2F4D40;
+    font-size: 17px;
+}
+
 .login-container label {
     display: block;
     margin-top: 15px;
