@@ -1,17 +1,17 @@
 {
-  "name": "s.w.e.et-lists",
+  "name": "chain-reaction",
   "version": "1.0.0",
-  "description": "A To-Do List for Software Engineers, by Software Engineers",
+  "description": "A Chained To-Do List for the modern Student & Teacher",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\"",
     "format": "prettier --write './**/*.{js,jsx,ts,tsx,css,md,json}' --config ./.prettierrc",
-    "dev": "nodemon -w express-backend backend.js",
+    "dev": "npm run dev -w react-frontend",
     "start": "node -w express-backend backend.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Corbyn-Rasque/S.W.E.ET-Lists.git"
+    "url": "git+https://github.com/Corbyn-Rasque/Chain-Reaction.git"
   },
   "author": "Corbyn Rasque",
   "contributors": [
@@ -24,9 +24,9 @@
   ],
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Corbyn-Rasque/S.W.E.ET-Lists/issues"
+    "url": "https://github.com/Corbyn-Rasque/Chain-Reaction/issues"
   },
-  "homepage": "https://github.com/Corbyn-Rasque/S.W.E.ET-Lists#readme",
+  "homepage": "https://github.com/Corbyn-Rasque/Chain-Reaction#readme",
   "devDependencies": {
     "@eslint/js": "^9.13.0",
     "eslint": "^9.13.0",
@@ -42,6 +42,7 @@
   "dependencies": {
     "@supabase/supabase-js": "^2.46.1",
     "dotenv": "^16.4.5",
+    "jsonwebtoken": "^9.0.2",
     "nodemon": "^3.1.7"
   }
 }

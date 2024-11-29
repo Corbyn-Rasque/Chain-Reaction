@@ -4,13 +4,13 @@ import cors from "cors";
 import db from "./database.js";
 
 const app = express();
-const port = 8005;
+const port = 8000;
 
 app.use(cors());
 app.use(express.json());
 
 app.listen(process.env.PORT || port, () => {
-  console.log(`Address: http://localhost:`+port);
+  console.log('Address: http://localhost:'+port);
 });
 
 
@@ -106,6 +106,9 @@ app.get('/domains/:domain_id/tasks', (req, res) => {
     })
     .catch((error) => console.error(error));
 });
+
+
+
 app.post('/domains/:domain_id', (req, res) => {
   const parent_id = req.params['domain_id'];
   var { name, end } = req.body;

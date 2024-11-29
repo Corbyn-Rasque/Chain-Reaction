@@ -1,49 +1,51 @@
-/* eslint-disable no-unused-vars */
- 
 import React, { useEffect, useState } from 'react';
 import Sidebar from './Sidebar';
 import Content from './content';
 import Login from "./webpages/login";
+// import jwt from "jsonwebtoken";
 import './App.css';
 
+// Uses a localhost address in IDE, and the live URL otherwise
+// .env -> localhost, .env.production -> live URL
+const host = import.meta.env.VITE_API_URL;
+
 function App() {
-    // const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const[domains, setDomains] = useState([]);
 
-    // const handleLogin = (username, password) => {
-    //     // Simulate login process (replace with real authentication logic)
-    //     if (username === "admin" && password === "password") {
-    //         setIsAuthenticated(true);
-    //     } else {
-    //         alert("Invalid credentials");
-    //     }
-    // };
-
-    // return (
-    //     <div className="app">
-    //         {!isAuthenticated ? (
-    //             <Login onLogin={handleLogin} />
-    //         ) : (
-    //             <>
-    //                 <Sidebar />
-    //                 <Content />
-    //             </>
-    //         )}
-    //     </div>
-    // );
-    const[tasks, setTasks] = useState([]);
-
-    function fetchTask(){
-        const promise = fetch("http://chainreaction-dychaqbqbngjdddg.westus3-01.azurewebsites.net/tasks")
-        return promise
+    function fetchSubDomains(domain_id) {
+        const promise = fetch(`${host}/domains/${domain_id}/subdomains`);
+        return promise;
     }
 
+    function fetchTasks(domain_id) {
+        const promise = fetch(`${host}/domains/${domain_id}/tasks`)
+        return promise;
+    }
+    
+    async function getTasks(domain) {
+        try {
+            const response = await fetchTasks(domain.id);
+            const tasks = await response.json();
+            return tasks;
+        }
+        catch (error) {
+            console.error(error);
+            return [];
+        }
+    }
 
-    // fetch tasks from backend and load into state
     useEffect(() => {
-        fetchTask()
-            .then((res)=> res.json())
-            .then((json) => setTasks(json))
-            .catch((error) => {console.log(error);});
+        fetchSubDomains(1)
+            .then((results) => { return results.json(); })
+            .then(async (json) => {
+                    const updatedDomains = await Promise.all(json.map(async (domain) => {
+                        const domainTasks = await getTasks(domain);
+                        return { ...domain, tasks: domainTasks };
+                    }));
+                console.log(updatedDomains);
+                setDomains(updatedDomains);
+            })
+            .catch((error) => { console.error(error);});
     },[]);
 
     
@@ -53,6 +55,7 @@ function App() {
         <div className="app">
             <Sidebar />
             <Content 
+                domainData = {domains}
                 taskData = {tasks}
             />
         </div>
