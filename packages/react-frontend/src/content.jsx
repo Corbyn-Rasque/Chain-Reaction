@@ -1,12 +1,7 @@
-/* eslint-disable react/no-unescaped-entities */
-/* eslint-disable no-unused-vars */
-/* eslint-disable react/prop-types */
- 
 import React from 'react';
-import './Content.css';
+import './content.css';
 
 function Content(props) {
-    const tasks = props.taskData || ["Tasks Completed!"];
     const domains = props.domainData || [];
 
     return (
@@ -16,8 +11,12 @@ function Content(props) {
                 <TaskCard
                     key = {domain.id}
                     title = {domain.name}
-                    tag = "Tag"
-                    tasks = {domain.tasks}
+                    tag = {new Date(domain.end)
+                            .toLocaleDateString("en-US", 
+                                { weekday: 'long', month: 'long', day: 'numeric' }
+                            )
+                          }
+                    tasks = {domain.tasks || []}
                 />
             ))}
         </div>

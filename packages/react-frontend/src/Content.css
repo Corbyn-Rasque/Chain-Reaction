@@ -1,7 +1,13 @@
 .content {
+  max-height: 95vh;
+  overflow-y: auto;
+  max-width: 90vw;
+  min-width: 75vw;
+  box-sizing: border-box;
   padding: 40px;
-  margin-left: 220px;
-  width: calc(100% - 220px);
+  margin-left: 20vw;
+  min-width: 220px;
+  width: calc(80vw - 5vw);
 }
 
 .content h1 {
@@ -15,6 +21,7 @@
   border-radius: 8px;
   padding: 20px;
   margin-bottom: 20px;
+  margin-right: 0.05vw;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
@@ -26,7 +33,7 @@
 }
 
 .task-card h2 {
-  font-size: 22px;
+  font-size: 20px;
   font-weight: bold;
 }
 
@@ -35,18 +42,22 @@
   color: white;
   padding: 5px 10px;
   border-radius: 5px;
-  font-size: 14px;
+  font-size: 16px;
+  text-align: center;
 }
 
 .task-card ul {
+  border-top: 1px solid #000000;
   list-style: none;
 }
 
 .task-card ul li {
   margin: 10px 0;
   font-size: 16px;
+  vertical-align: bottom;
 }
 
 .task-card ul li input[type="checkbox"] {
   margin-right: 10px;
+  vertical-align: middle;
 }
