@@ -4,17 +4,18 @@ import React, { useEffect, useState } from 'react';
 import { BrowserRouter, Route, Navigate, Routes } from 'react-router-dom';
 import Login from "./webpages/login";
 import TaskPage from './webpages/taskPage';
+import { loginUser } from '../../express-backend/auth';
 
 // Default first page loaded is login
 function App() {
-    const [isAuthenticated, setIsAuthenticated] = useState(true);
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
     const INVALID_TOKEN = "INVALID_TOKEN";
     const [token, setToken] = useState(INVALID_TOKEN);
     const [message, setMessage] = useState("");
 
-    const handleLogin = (username, password) => {
+    const handleLogin = (email, password) => {
         // Simulate login process (replace with real authentication logic)
-        if (username === "admin" && password === "password") {
+        if (email === "admin" && password === "password") {
             setIsAuthenticated(true);
         } else {
             alert("Invalid credentials");
