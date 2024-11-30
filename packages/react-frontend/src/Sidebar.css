@@ -16,6 +16,11 @@
   font-size: 36px;
 }
 
+.sidebar h3 {
+  vertical-align: bottom;
+  font-size: 36px;
+}
+
 .sidebar a {
   display: block;
   color: white;

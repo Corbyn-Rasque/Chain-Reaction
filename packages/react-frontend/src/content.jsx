@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import App from './App'
 import './content.css';
 
 function Content(props) {
@@ -16,14 +17,32 @@ function Content(props) {
                                 { weekday: 'long', month: 'long', day: 'numeric' }
                             )
                           }
-                    tasks = {domain.tasks || []}
+                    initialTasks = {domain.tasks || []}
+                    domain = {domain.id}
+                    props = {props}
                 />
             ))}
         </div>
     );
 }
 
-function TaskCard({ title, tag, tasks }) {
+
+function TaskCard({ title, tag, initialTasks, domain, props}) {
+    const [tasks, setTasks] = useState(initialTasks);
+
+    var handleCheckBoxChange;
+    try {
+        handleCheckBoxChange = async (task_id, task) => {
+            const task_updated = await props.update_task(task_id, { ...task, completed: !task.completed });
+    
+            if (task_updated) {
+                const refreshed_tasks = await props.fetch_tasks_by_domain(domain);
+                    setTasks(refreshed_tasks);
+            }
+        }
+    }
+    catch (error) { console.error("Error updating task:", error); }
+
     return (
         <div className="task-card">
             <div className="header">
@@ -33,7 +52,12 @@ function TaskCard({ title, tag, tasks }) {
             <ul>
                 {tasks.map((task) => (
                     <li key={task.id}>
-                        <input type="checkbox" /> {task.name}
+                        <input
+                            type = "checkbox"
+                            checked = {task.completed}
+                            onChange = { () => handleCheckBoxChange(task.id, task) }
+                        /> {" "}
+                        {task.name}
                     </li>
                 ))}
             </ul>
