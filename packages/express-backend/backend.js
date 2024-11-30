@@ -11,7 +11,7 @@ app.use(cors());
 app.use(express.json());
 
 app.listen(process.env.PORT || port, () => {
-  console.log(`Address: http://localhost:`+port);
+  console.log(`Address: https://localhost:`+port);
 });
 
 
@@ -60,7 +60,7 @@ app.delete('/users/:user_id', (req, res) => {
 
 app.post('/login',loginUser);
 
-app.post('/singup',registerUser)
+app.post('/signup',registerUser)
 
 
 // User Domains

@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable no-unused-vars */
 
@@ -8,11 +9,17 @@ import '../App.css';
 import addAuthHeader from '../App'
 
 
+
+
+
 function TaskPage() {
     const[tasks, setTasks] = useState([]);
 
+    address_loc = "http://localhost:8005/tasks";
+    address_cloud = "https://chainreaction-dychaqbqbngjdddg.westus3-01.azurewebsites.net/tasks";    
+
     function fetchTask(){
-        const promise = fetch("https://chainreaction-dychaqbqbngjdddg.westus3-01.azurewebsites.net/tasks",
+        const promise = fetch(address_loc,
         {
             headers: addAuthHeader()
         });
