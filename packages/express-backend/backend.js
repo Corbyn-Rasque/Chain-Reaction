@@ -106,8 +106,16 @@ app.get('/domains/:domain_id/tasks', (req, res) => {
     })
     .catch((error) => console.error(error));
 });
+app.get('/domains/:domain_id', (req, res) => {
+  const domain_id = req.params["domain_id"];
 
-
+  db.get_subdomains_and_tasks(domain_id)
+    .then((result) => {
+      if (result) { res.status(200).send(result); }
+      else { res.status(404).send(); }
+    })
+    .catch((error) => console.error(error));
+});
 
 app.post('/domains/:domain_id', (req, res) => {
   const parent_id = req.params['domain_id'];
@@ -179,15 +187,13 @@ app.post('/domains/:domain_id/tasks/:group?/:order?', (req, res) => {
 app.put('/tasks/:task_id/:group?/:order?', (req, res) => {
   const task_id = req.params['task_id'];
   const { group, order } = req.query;
-  var { name, notes, do_date, due_date, completed } = req.body;
+  var { name, notes, $do, $due, completed } = req.body;
 
-  if (do_date) { do_date = new Date(do_date); }
-  if (due_date) { due_date = new Date(due_date); }
+  if ($do) { $do = new Date($do); }
+  if ($due) { $due = new Date($due); }
   completed = completed ? true : false;   // 1: true, 0: false
 
-  db.update_task(task_id,
-                           { name, notes, do_date, due_date, completed },
-                           group, order)
+  db.update_task(task_id, { name, notes, $do, $due, completed }, group, order)
     .then((result) => {
       if (result) { res.status(204).send(); }
       else { res.status(404).send(); }

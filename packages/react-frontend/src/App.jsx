@@ -1,62 +1,54 @@
 import React, { useEffect, useState } from 'react';
-import Sidebar from './Sidebar';
+import Sidebar from './sidebar';
 import Content from './content';
 import Login from "./webpages/login";
 // import jwt from "jsonwebtoken";
-import './App.css';
+import './app.css';
 
 // Uses a localhost address in IDE, and the live URL otherwise
 // .env -> localhost, .env.production -> live URL
 const host = import.meta.env.VITE_API_URL;
 
+async function fetch_subdomains_and_tasks(user_domain) {
+    const response = await fetch(`${host}/domains/${user_domain}`);
+    
+    if (response.status == 200) { return response.json(); }
+    else { throw new Error("Fetching subdomains & tasks failed!"); }
+}
+
+async function fetch_tasks_by_domain(domain_id) {
+    const response = await fetch(`${host}/domains/${domain_id}/tasks`);
+
+    if (response.status == 200) { return response.json(); }
+    else { throw new Error("Fetching subdomains & tasks failed!"); }
+}
+
+async function update_task (task_id, updated_task) {
+    const response = await fetch(`${host}/tasks/${task_id}`,
+                                { method: "PUT",
+                                  headers: { "Content-Type": "application/json", },
+                                  body: JSON.stringify(updated_task), });
+    
+    if (response.status == 204) { return true; }
+    else { throw new Error("Updating task failed!"); }                
+}
+
 function App() {
     const[domains, setDomains] = useState([]);
 
-    function fetchSubDomains(domain_id) {
-        const promise = fetch(`${host}/domains/${domain_id}/subdomains`);
-        return promise;
-    }
-
-    function fetchTasks(domain_id) {
-        const promise = fetch(`${host}/domains/${domain_id}/tasks`)
-        return promise;
-    }
-    
-    async function getTasks(domain) {
-        try {
-            const response = await fetchTasks(domain.id);
-            const tasks = await response.json();
-            return tasks;
-        }
-        catch (error) {
-            console.error(error);
-            return [];
-        }
-    }
-
     useEffect(() => {
-        fetchSubDomains(1)
-            .then((results) => { return results.json(); })
-            .then(async (json) => {
-                    const updatedDomains = await Promise.all(json.map(async (domain) => {
-                        const domainTasks = await getTasks(domain);
-                        return { ...domain, tasks: domainTasks };
-                    }));
-                console.log(updatedDomains);
-                setDomains(updatedDomains);
-            })
+        fetch_subdomains_and_tasks(1)
+            .then((results) => { setDomains(results); })
             .catch((error) => { console.error(error);});
     },[]);
 
-    
-    
-    // Returns to display
     return (
         <div className="app">
             <Sidebar />
             <Content 
                 domainData = {domains}
-                taskData = {tasks}
+                fetch_tasks_by_domain = {fetch_tasks_by_domain}
+                update_task = {update_task}
             />
         </div>
     );
