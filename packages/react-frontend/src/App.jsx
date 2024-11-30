@@ -4,7 +4,6 @@ import React, { useEffect, useState } from 'react';
 import { BrowserRouter, Route, Navigate, Routes } from 'react-router-dom';
 import Login from "./webpages/login";
 import TaskPage from './webpages/taskPage';
-import { loginUser } from '../../express-backend/auth';
 
 // Default first page loaded is login
 function App() {
@@ -13,14 +12,14 @@ function App() {
     const [token, setToken] = useState(INVALID_TOKEN);
     const [message, setMessage] = useState("");
 
-    const handleLogin = (email, password) => {
-        // Simulate login process (replace with real authentication logic)
-        if (email === "admin" && password === "password") {
-            setIsAuthenticated(true);
-        } else {
-            alert("Invalid credentials");
-        }
-    };
+    // const handleLogin = (email, password) => {
+    //     // Simulate login process (replace with real authentication logic)
+    //     if (email === "admin" && password === "password") {
+    //         setIsAuthenticated(true);
+    //     } else {
+    //         alert("Invalid credentials");
+    //     }
+    // };
 
     function loginUser(creds) {
         const promise = fetch(`http://localhost:8005/login`, {
@@ -97,7 +96,7 @@ function App() {
                     path="/"
                     element={
                         !isAuthenticated ? (
-                            <Login onLogin={handleLogin} />
+                            <Login  handleSubmit={loginUser} />
                         ) : (
                             <Navigate to="/tasks" replace />
                         )

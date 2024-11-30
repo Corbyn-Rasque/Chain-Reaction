@@ -60,7 +60,7 @@ app.delete('/users/:user_id', (req, res) => {
 
 app.post('/login',loginUser);
 
-app.post('/signup',registerUser)
+app.post('/signup',registerUser);
 
 
 // User Domains

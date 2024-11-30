@@ -37,13 +37,13 @@ function Login(props) {
                     />
                     <input
                       type = "button"
-                      value = {props.buttonLabel || "Log in"}
+                      value = "Log in"
                       onClick={submitForm} />
-                    {/* <h3>- OR -</h3>
+                    <h3>- OR -</h3>
                     <input
                       type = "button"
                       value = "Create User"
-                      onClick={handleSignUp} /> */}
+                      onClick={handleSignUp} />
                 </form>
             </div>
         </div>
@@ -67,7 +67,8 @@ function Login(props) {
     }
 
     function handleSignUp() {
-
+        props.handleSubmit(creds);
+        setCreds({ username:"", pwd: ""})
     }
 }
 
