@@ -60,4 +60,5 @@
 .task-card ul li input[type="checkbox"] {
   margin-right: 10px;
   vertical-align: middle;
+  -webkit-transform: scale(1.3);
 }
