@@ -9,28 +9,43 @@ const db = new Pool({ connectionString, })
 
 // User
 async function get_user(user) {
-  const query =  'SELECT id \
+  const query =  'SELECT email, password \
                   FROM users \
-                  WHERE email = $1'
+                  WHERE email = $1 \
+                  LIMIT 1';
 
   try {
     const id = await db.query(query, [user.email])
-    if (id.rowCount) { return id.rows; }
+    if (id.rowCount) { return id.rows[0]; }
     else { return false}; 
   }
   catch (error) {
     console.error('Error adding user:', error);
   }
 }
+async function get_user_id(user) {
+  const query =  'SELECT id \
+                  FROM users \
+                  WHERE email = $1'
+
+  try {
+    const id = await db.query(query, [user.email])
+    if (id.rowCount) { return id.rows[0]; }
+    else {return false};
+  }
+  catch (error) {
+    console.error("Error getting user ID:", error);
+  }
+}
 async function add_user(user) {
   const query =  'INSERT INTO Users (email, password) \
                   VALUES ($1, $2) \
                   ON CONFLICT (email) DO NOTHING \
-                  RETURNING id'
+                  RETURNING id';
 
   try {
     const id = await db.query(query, [user.email, user.password])
-    if (id.rowCount) { return id.rows; }
+    if (id.rowCount) { return id.rows[0]; }
     else { return false}; 
   }
   catch (error) {
@@ -75,7 +90,7 @@ async function get_user_domains(user_id) {
   const query =  'SELECT domains.id AS id, domains.name AS name, domains.end AS end \
                   FROM user_domains \
                   JOIN domains ON domains.id = user_domains.domain_id \
-                  WHERE id = $1'
+                  WHERE user_id = $1'
   try {
     const domains = await db.query(query, [user_id]);
     if (domains.rowCount) { return domains.rows; }
@@ -466,6 +481,7 @@ async function remove_free_time(schedule_id) { return; }
 
 export default{
   get_user,
+  get_user_id,
   add_user,
   update_user,
   remove_user,

@@ -1,16 +1,35 @@
 // src/main.jsx
-// eslint-disable-next-line no-unused-vars
 import React from "react";
 import ReactDOMClient from "react-dom/client";
-import App from "./App"; //Imports the MyApp component from the seperate file (Vite converts to JS)
-// import "./main.css";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import App from "./App";
+import Login from "./login"
 
+export default function Main() {
+    return (
+        <BrowserRouter>
+            <Routes>
+                <Route 
+                    path = "/"
+                    element = {<Login />}
+                />
+                <Route
+                    path = "/login"
+                    element = {<Login />}
+                />
+                <Route
+                    path = "/dashboard"
+                    element = {<App />}
+                /> 
+            </Routes>
+        </BrowserRouter>
+    );
+}
 
-// Create the container
 const container = document.getElementById("root");
-
-// Create a root
 const root = ReactDOMClient.createRoot(container);
-
-// Initial render: Render an element to the Root
-root.render(<App />);
+root.render(
+    <React.StrictMode>
+        <Main />
+    </React.StrictMode>
+);

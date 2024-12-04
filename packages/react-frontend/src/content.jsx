@@ -1,9 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import App from './App'
+// import App from './App'
 import './content.css';
 
 function Content(props) {
-    const domains = props.domainData || [];
+    var domains = props.domainData[0] || [];
+
+    if(!domains) {
+        return (
+            <div className="content">
+                <h1>Today's Tasks</h1>
+            </div>
+        );
+    }
 
     return (
         <div className="content">
