@@ -10,35 +10,7 @@ import './app.css';
 // .env -> localhost, .env.production -> live URL
 const host = import.meta.env.VITE_API_URL;
 
-<<<<<<< HEAD
-async function fetch_subdomains_and_tasks(user_domain) {
-    const response = await fetch(`${host}/domains/${user_domain}`);
-    
-    if (response.status == 200) { return response.json(); }
-    else { throw new Error("Fetching subdomains & tasks failed!"); }
-}
 
-async function fetch_tasks_by_domain(domain_id) {
-    const response = await fetch(`${host}/domains/${domain_id}/tasks`);
-
-    if (response.status == 200) { return response.json(); }
-    else { throw new Error("Fetching subdomains & tasks failed!"); }
-}
-
-async function update_task (task_id, updated_task) {
-    const response = await fetch(`${host}/tasks/${task_id}`,
-                                { method: "PUT",
-                                  headers: { "Content-Type": "application/json", },
-                                  body: JSON.stringify(updated_task), });
-    
-    if (response.status == 204) { return true; }
-    else { throw new Error("Updating task failed!"); }                
-}
-
-
-// Default first page loaded is login
-=======
->>>>>>> 0004ea8 (Implemented React Routing, User Auth & Login.)
 function App() {
     const INVALID_TOKEN = 'INVALID_TOKEN';
     const [token, setToken] = useState(INVALID_TOKEN);
