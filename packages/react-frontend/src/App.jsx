@@ -33,6 +33,8 @@ async function update_task (task_id, updated_task) {
     else { throw new Error("Updating task failed!"); }                
 }
 
+
+// Default first page loaded is login
 function App() {
     const[domains, setDomains] = useState([]);
 

@@ -2,10 +2,9 @@
 
 ## Members:
 
-Khushkaranpreet Singh Grewal\
 Corbyn Rasque\
 Elijah Villanueva\
-Anthony Thang 
+Khushkaranpreet Singh Grewal
 
 ## Contributing:
 **Style Guide Choice:** [AirBnB](https://airbnb.io/javascript/react/)

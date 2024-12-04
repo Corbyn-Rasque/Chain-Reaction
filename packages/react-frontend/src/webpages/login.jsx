@@ -1,12 +1,16 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
-import React from "react";
+import React, {useState} from "react";
 import "./CP-login-page.css"; // Import the CSS file for styling
 
-const Login = () => {
+// Uses the state 
+const Login = ({onLogin}) => {
+
     const handleSubmit = (event) => {
         event.preventDefault(); // Prevent default form submission
         const username = event.target.username.value;
         const password = event.target.password.value;
+        onLogin(username,password)
 
         // Here, you can integrate with your backend API
         console.log("Username:", username, "Password:", password);
