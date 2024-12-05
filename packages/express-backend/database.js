@@ -9,28 +9,43 @@ const db = new Pool({ connectionString, })
 
 // User
 async function get_user(user) {
-  const query =  'SELECT id \
+  const query =  'SELECT email, password \
                   FROM users \
-                  WHERE email = $1'
+                  WHERE email = $1 \
+                  LIMIT 1';
 
   try {
     const id = await db.query(query, [user.email])
-    if (id.rowCount) { return id.rows; }
+    if (id.rowCount) { return id.rows[0]; }
     else { return false}; 
   }
   catch (error) {
     console.error('Error adding user:', error);
   }
 }
+async function get_user_id(user) {
+  const query =  'SELECT id \
+                  FROM users \
+                  WHERE email = $1'
+
+  try {
+    const id = await db.query(query, [user.email])
+    if (id.rowCount) { return id.rows[0]; }
+    else {return false};
+  }
+  catch (error) {
+    console.error("Error getting user ID:", error);
+  }
+}
 async function add_user(user) {
   const query =  'INSERT INTO Users (email, password) \
                   VALUES ($1, $2) \
                   ON CONFLICT (email) DO NOTHING \
-                  RETURNING id'
+                  RETURNING id';
 
   try {
     const id = await db.query(query, [user.email, user.password])
-    if (id.rowCount) { return id.rows; }
+    if (id.rowCount) { return id.rows[0]; }
     else { return false}; 
   }
   catch (error) {
@@ -75,7 +90,7 @@ async function get_user_domains(user_id) {
   const query =  'SELECT domains.id AS id, domains.name AS name, domains.end AS end \
                   FROM user_domains \
                   JOIN domains ON domains.id = user_domains.domain_id \
-                  WHERE id = $1'
+                  WHERE user_id = $1'
   try {
     const domains = await db.query(query, [user_id]);
     if (domains.rowCount) { return domains.rows; }
@@ -118,6 +133,71 @@ async function get_domains_by_user_domain(user_domain_id) {
   }
   catch (error) {
     console.error('Error fetching subdomains:', error);
+  }
+}
+async function get_subdomains_and_tasks(user_domain_id) {
+  const query =  'WITH RECURSIVE all_domains AS ( SELECT parent_id, \
+                                                         child_id, \
+                                                         1 AS depth \
+                                                  FROM users \
+                                                  JOIN user_domains ON user_domains.user_id = users.id \
+                                                  JOIN domain_relations ON domain_relations.parent_id = user_domains.domain_id \
+                                                  WHERE domain_relations.parent_id = $1 \
+                                                  \
+                                                  UNION ALL \
+                                                  \
+                                                  SELECT domain_relations.parent_id, \
+                                                         domain_relations.child_id, \
+                                                         all_domains.depth + 1 \
+                                                  FROM domain_relations \
+                                                  JOIN all_domains ON domain_relations.parent_id = all_domains.child_id ), \
+                                                  \
+                             tasks_by_domain AS ( SELECT domain_id, id, \
+                                                         tasks."group", "order", \
+                                                         name, notes, \
+                                                         "do", due, \
+                                                         completed \
+                                                  FROM tasks \
+                                                  JOIN domain_tasks ON domain_tasks."group" = tasks."group" ), \
+                                                  \
+                        tasks_grouped_sorted AS ( SELECT domain_id, \
+                                                         jsonb_agg(jsonb_build_object(\'id\',         id, \
+                                                                                      \'group\',      "group", \
+                                                                                      \'order\',      "order", \
+                                                                                      \'name\',       name, \
+                                                                                      \'notes\',      notes, \
+                                                                                      \'do\',         "do", \
+                                                                                      \'due\',        due, \
+                                                                                      \'completed\',  completed )\
+                                                  ORDER BY "group" ASC, "order" ASC) AS tasks \
+                                                  FROM tasks_by_domain \
+                                                  GROUP BY domain_id ) \
+                  SELECT all_domains.parent_id, \
+                         domains.id, \
+                         domains.name, \
+                         domains.end, \
+                         CASE \
+                            WHEN bool_and(tasks_grouped_sorted.tasks IS NULL) THEN NULL \
+                            ELSE tasks_grouped_sorted.tasks \
+                         END AS tasks \
+                  FROM all_domains \
+                  JOIN domains ON all_domains.child_id = domains.id \
+                  LEFT JOIN tasks_grouped_sorted ON tasks_grouped_sorted.domain_id = domains.id \
+                  GROUP BY tasks_grouped_sorted.tasks, \
+                           all_domains.parent_id, \
+                           domains.id, \
+                           domains.name, \
+                           domains.end \
+                  ORDER BY domains.id;'
+
+  try {
+    const res = await db.query(query, [user_domain_id])
+
+    if (res.rowCount) { return res.rows; }
+    else { return false; }
+  }
+  catch(error) {
+    console.error('Error getting domains & tasks:', error);
   }
 }
 async function get_tasks(domain_id) {
@@ -401,6 +481,7 @@ async function remove_free_time(schedule_id) { return; }
 
 export default{
   get_user,
+  get_user_id,
   add_user,
   update_user,
   remove_user,
@@ -409,6 +490,7 @@ export default{
   add_user_domain,
 
   get_domains_by_user_domain,
+  get_subdomains_and_tasks,
   get_tasks,
   add_domain,
   update_domain,

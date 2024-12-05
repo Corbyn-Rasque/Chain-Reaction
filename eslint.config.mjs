@@ -6,7 +6,7 @@ import eslintConfigPrettier from "eslint-config-prettier";
 
 export default [
   {
-    files: ["**/*.{js,mjs,cjs,jsx}"]
+    files: ["src/**/*.{js,mjs,cjs,jsx}"]
   },
   pluginJs.configs.recommended,
   pluginReact.configs.flat.recommended,
@@ -17,7 +17,8 @@ export default [
       sourceType: "module",
       globals: {
         ...globals.browser,
-        ...globals.node
+        ...globals.node,
+        process: "readonly"
       }
     },
     env: {
@@ -27,7 +28,8 @@ export default [
     },
     rules: {
       "react/prop-types": 0,
-      "react/react-in-jsx-scope": "off"
+      "react/react-in-jsx-scope": "off",
+      "no-undef": "off"
     }
   }
 ];

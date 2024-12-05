@@ -1,59 +1,55 @@
-/* eslint-disable react/no-unescaped-entities */
-/* eslint-disable no-unused-vars */
-/* eslint-disable react/prop-types */
- 
-import React from 'react';
-import './Content.css';
+import React, { useEffect, useState } from 'react';
+import './content.css';
 
 function Content(props) {
-     const tasks = props.taskData || []; // Use an empty array if tasks is undefined
+    var domains = props.domainData[0] || [];
+
+    if(!domains) {
+        return (
+            <div className="content">
+                <h1>Today's Tasks</h1>
+            </div>
+        );
+    }
 
     return (
         <div className="content">
             <h1>Today's Tasks</h1>
-            {tasks.map((task, index) => (
+            {domains.map((domain) => (
                 <TaskCard
-                    key = {index}
-                    title="CSC 307"
-                    tag = "Test"
-                    tasks={[task.name]}
+                    key = {domain.id}
+                    title = {domain.name}
+                    tag = {new Date(domain.end)
+                            .toLocaleDateString("en-US", 
+                                { weekday: 'long', month: 'long', day: 'numeric' }
+                            )
+                          }
+                    initialTasks = {domain.tasks || []}
+                    domain = {domain.id}
+                    props = {props}
                 />
             ))}
-            <TaskCard
-                key = "1000"
-                title="CSC 307 — Intro to Software Engineering"
-                tag="Sprint 1"
-                tasks={[
-                    "Team Assignment 2: UI Prototyping & Storyboard",
-                    "Independent Assignment 5: Unit Testing w/ Jest",
-                ]}
-            />
-
-            <TaskCard
-                key = "1001"
-                title="CSC 365 — Intro to Databases"
-                tag="Group Project - Version 1"
-                tasks={[
-                    "Group Project : Version 1 Due",
-                    "Potion Shop: Version 4 Due (Ledgers)",
-                    "Quiz 6: Entity Relations",
-                ]}
-            />
-            <TaskCard
-                key = "1002"
-                title="CSC 357 - Systems Programming"
-                tag="Week 5"
-                tasks={[
-                    "Group Project : Version 1 Due",
-                    "Potion Shop: Version 4 Due (Ledgers)",
-                ]}
-            />
-            
         </div>
     );
 }
 
-function TaskCard({ key, title, tag, tasks }) {
+
+function TaskCard({ title, tag, initialTasks, domain, props}) {
+    const [tasks, setTasks] = useState(initialTasks);
+
+    var handleCheckBoxChange;
+    try {
+        handleCheckBoxChange = async (task_id, task) => {
+            const task_updated = await props.update_task(task_id, { ...task, completed: !task.completed });
+    
+            if (task_updated) {
+                const refreshed_tasks = await props.fetch_tasks_by_domain(domain);
+                    setTasks(refreshed_tasks);
+            }
+        }
+    }
+    catch (error) { console.error("Error updating task:", error); }
+
     return (
         <div className="task-card">
             <div className="header">
@@ -61,9 +57,14 @@ function TaskCard({ key, title, tag, tasks }) {
                 <span className="tag">{tag}</span>
             </div>
             <ul>
-                {tasks.map((task, index) => (
-                    <li key={index}>
-                        <input type="checkbox" /> {task}
+                {tasks.map((task) => (
+                    <li key={task.id}>
+                        <input
+                            type = "checkbox"
+                            checked = {task.completed}
+                            onChange = { () => handleCheckBoxChange(task.id, task) }
+                        /> {" "}
+                        {task.name}
                     </li>
                 ))}
             </ul>
@@ -72,5 +73,3 @@ function TaskCard({ key, title, tag, tasks }) {
 }
 
 export default Content;
-
-
