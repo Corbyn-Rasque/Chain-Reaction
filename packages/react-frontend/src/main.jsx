@@ -2,8 +2,8 @@
 import React from "react";
 import ReactDOMClient from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import App from "./App";
-import Login from "./login"
+import App from "./app";
+import Login from "./Login"
 
 export default function Main() {
     return (
