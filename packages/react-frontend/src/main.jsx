@@ -2,7 +2,6 @@
 import React from "react";
 import ReactDOMClient from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import App from "./app.jsx";
 import Login from "./login.jsx"
 
 export default function Main() {
