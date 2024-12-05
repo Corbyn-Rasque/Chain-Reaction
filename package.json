@@ -39,6 +39,9 @@
   "workspaces": [
     "packages/*"
   ],
+  "engines": {
+    "node": ">=20.0.0"
+  },
   "dependencies": {
     "@supabase/supabase-js": "^2.46.1",
     "dotenv": "^16.4.5",
