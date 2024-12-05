@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import './Content.css';
+import './content.css';
 
 function Content(props) {
     var domains = props.domainData[0] || [];
