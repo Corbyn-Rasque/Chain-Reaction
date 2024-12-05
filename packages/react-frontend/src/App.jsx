@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Sidebar from './sidebar';
-import Content from './content';
-import Login from "./webpages/login";
-// import jwt from "jsonwebtoken";
+import Sidebar from './sidebar.jsx';
+import Content from './content.jsx';
 import './app.css';
 
 // Uses a localhost address in IDE, and the live URL otherwise
