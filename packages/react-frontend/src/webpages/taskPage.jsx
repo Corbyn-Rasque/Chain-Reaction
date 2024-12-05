@@ -15,11 +15,10 @@ import addAuthHeader from '../App'
 function TaskPage() {
     const[tasks, setTasks] = useState([]);
 
-    address_loc = "http://localhost:8005/tasks";
-    address_cloud = "https://chainreaction-dychaqbqbngjdddg.westus3-01.azurewebsites.net/tasks";    
+  
 
     function fetchTask(){
-        const promise = fetch(address_loc,
+        const promise = fetch("http://localhost:8005/tasks",
         {
             headers: addAuthHeader()
         });

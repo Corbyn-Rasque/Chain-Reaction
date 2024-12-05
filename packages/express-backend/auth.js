@@ -1,8 +1,8 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-// import taskServices from "./taskServices";
+import database from "./database.js";
 
-const creds = [];
+// const creds = [];
 
 export function registerUser(req, res) {
     const { username, pwd } = req.body; // from form (frontend)
@@ -18,8 +18,11 @@ export function registerUser(req, res) {
         .then((hashedPassword) => {
           generateAccessToken(username).then((token) => {
             console.log("Token:", token);
+            console.log(creds)
             res.status(201).send({ token: token });
-            creds.push({ username, hashedPassword });
+           
+            database.add_user({'email': username, 'password' :hashedPassword})
+
           });
         });
     }
@@ -67,29 +70,31 @@ export function authenticateUser(req, res, next) {
 
 export function loginUser(req, res) {
     const { username, pwd } = req.body; // from form
-    const retrievedUser = creds.find(
-      (c) => c.username === username
-    );
-  
-    if (!retrievedUser) {
-      // invalid username
-      res.status(401).send("Unauthorized");
-    } else {
-      bcrypt
-        .compare(pwd, retrievedUser.hashedPassword)
-        .then((matched) => {
-          if (matched) {
-            generateAccessToken(username).then((token) => {
-              res.status(200).send({ token: token });
-            });
-          } else {
-            // invalid password
-            res.status(401).send("Unauthorized");
-          }
-        })
-        .catch(() => {
+    
+    database.get_user({'email':username})
+      .then((retrievedUser) => {
+        if (!retrievedUser) {
+          // invalid username
           res.status(401).send("Unauthorized");
-        });
-    }
+        } else {
+          // since database.get_user returns an array, must index [0] (emails are unique)
+          bcrypt
+            .compare(pwd, retrievedUser[0].password)
+            .then((matched) => {
+              if (matched) {
+                generateAccessToken(username).then((token) => {
+                  res.status(200).send({ token: token });
+                });
+              } else {
+                // invalid password
+                res.status(401).send("Unauthorized");
+              }
+            })
+            .catch(() => {
+              console.log("Error")
+              res.status(401).send("Unauthorized");
+            });
+        } 
+      });
   }
 export default {registerUser, authenticateUser,loginUser}

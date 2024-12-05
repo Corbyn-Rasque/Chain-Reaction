@@ -9,7 +9,7 @@ const db = new Pool({ connectionString, })
 
 // User
 async function get_user(user) {
-  const query =  'SELECT id \
+  const query =  'SELECT * \
                   FROM users \
                   WHERE email = $1'
 

@@ -7,19 +7,11 @@ import TaskPage from './webpages/taskPage';
 
 // Default first page loaded is login
 function App() {
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
+
     const INVALID_TOKEN = "INVALID_TOKEN";
     const [token, setToken] = useState(INVALID_TOKEN);
     const [message, setMessage] = useState("");
 
-    // const handleLogin = (email, password) => {
-    //     // Simulate login process (replace with real authentication logic)
-    //     if (email === "admin" && password === "password") {
-    //         setIsAuthenticated(true);
-    //     } else {
-    //         alert("Invalid credentials");
-    //     }
-    // };
 
     function loginUser(creds) {
         const promise = fetch(`http://localhost:8005/login`, {
@@ -92,17 +84,9 @@ function App() {
     return (
         <BrowserRouter>
             <Routes>
-                <Route
-                    path="/"
-                    element={
-                        !isAuthenticated ? (
-                            <Login  handleSubmit={loginUser} />
-                        ) : (
-                            <Navigate to="/tasks" replace />
-                        )
-                    }
-                />
-                <Route path="/tasks" element={isAuthenticated ? <TaskPage /> : <Navigate to="/" replace />} />
+                <Route path ="/login" element={<Login handleSubmit = {loginUser} />}/>
+                <Route path ="/signup" element={<Login handleSubmit = {signupUser} buttonLabel="Sign Up" /> } />
+                <Route path = "/tasks" element=<TaskPage /> />
             </Routes>
         </BrowserRouter>
 
