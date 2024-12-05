@@ -21,11 +21,6 @@ export default [
         process: "readonly"
       }
     },
-    env: {
-      browser: true,
-      node: true,
-      es2021: true,
-    },
     rules: {
       "react/prop-types": 0,
       "react/react-in-jsx-scope": "off",
