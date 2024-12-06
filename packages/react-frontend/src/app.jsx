@@ -29,8 +29,11 @@ function App() {
         else { throw new Error("Fetching subdomains & tasks failed!"); }
     }
 
-    async function update_task (task_id, updated_task) {
-        const response = await fetch(`${host}/tasks/${task_id}`, {
+    async function update_task (task_id, updated_task, group = null, order= null) {
+        if (!group) { group = updated_task.group; }
+        if (!order) { order = updated_task.order; }
+
+        const response = await fetch(`${host}/tasks/${task_id}?group=${group}&order=${order}`, {
             method: "PUT",
             headers: addAuthHeader({ "Content-Type": "application/json", }),
             body: JSON.stringify(updated_task), });

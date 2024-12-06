@@ -57,6 +57,21 @@ function TaskCard({ title, tag, initialTasks, domain, props}) {
     }
     catch (error) { console.error("Error updating task:", error); }
 
+    var changeOrder;
+    try {
+        changeOrder = async (task_id, task, change) => {
+            const task_updated = await props.update_task(task_id, task, task.group, task.order+change);
+
+            console.log('here');
+
+            if (task_updated) {
+                const refreshed_tasks = await props.fetch_tasks_by_domain(domain);
+                setTasks(refreshed_tasks);
+            }
+        }
+    }
+    catch (error) { console.error("Error changing task order:", error); }
+
     var removeTask;
     try {
         removeTask = async (task_id) => {
@@ -64,7 +79,7 @@ function TaskCard({ title, tag, initialTasks, domain, props}) {
 
             if (removed) {
                 const refreshed_tasks = await props.fetch_tasks_by_domain(domain);
-                    setTasks(refreshed_tasks);
+                setTasks(refreshed_tasks);
             }
         }
     }
@@ -86,6 +101,8 @@ function TaskCard({ title, tag, initialTasks, domain, props}) {
                         /> {" "}
                         <div className='task-content'>
                             <span>{task.name}</span>
+                            {task.order !== 1 && ( <button className = "button" onClick={ () => changeOrder(task.id, task, -1) }>↑</button> )}
+                            {task.order != Math.max(...tasks.filter((any_task) => any_task.group == task.group).map((group_task) => group_task.order)) && (<button className = "button" onClick={ () => changeOrder(task.id, task, 1) }>↓</button>)}
                             <button className = "button" onClick={ () => removeTask(task.id) }>remove</button>
                         </div>
                     </li>
