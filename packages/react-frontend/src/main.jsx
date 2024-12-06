@@ -3,6 +3,7 @@ import React from "react";
 import ReactDOMClient from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "./login.jsx"
+import MyApp from "./app.jsx"
 
 export default function Main() {
     return (
@@ -18,7 +19,7 @@ export default function Main() {
                 />
                 <Route
                     path = "/dashboard"
-                    element = {<App />}
+                    element = {<MyApp />}
                 /> 
             </Routes>
         </BrowserRouter>
