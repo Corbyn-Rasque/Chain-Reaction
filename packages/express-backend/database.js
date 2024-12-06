@@ -382,6 +382,8 @@ async function update_task(task_id, updated_task, group, order) {
   }
 }
 async function remove_task(task_id) {
+  console.log('Removed Task ID:', task_id);
+
   const get_info = 'SELECT "group", "order" \
                     FROM tasks \
                     WHERE id = $1';

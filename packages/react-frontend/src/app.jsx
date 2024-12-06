@@ -39,6 +39,16 @@ function App() {
         else { throw new Error("Updating task failed!"); }                
     }
 
+    async function remove_task(task_id) {
+        const response = await fetch(`${host}/tasks/${task_id}`, {
+            method: "DELETE",
+            headers: addAuthHeader(),
+        })
+
+        if (response.status == 204) { return true; }
+        else { throw new Error("Removing task failed!"); }
+    }
+
     async function get_all_data() {
 
         console.log("TOKEN::: ", token);
@@ -78,6 +88,7 @@ function App() {
                 domainData = {domains}
                 fetch_tasks_by_domain = {fetch_tasks_by_domain}
                 update_task = {update_task}
+                remove_task = {remove_task}
             />
         </div>
     );

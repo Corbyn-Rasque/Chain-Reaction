@@ -50,6 +50,19 @@ function TaskCard({ title, tag, initialTasks, domain, props}) {
     }
     catch (error) { console.error("Error updating task:", error); }
 
+    var removeTask;
+    try {
+        removeTask = async (task_id) => {
+            const removed = await props.remove_task(task_id);
+
+            if (removed) {
+                const refreshed_tasks = await props.fetch_tasks_by_domain(domain);
+                    setTasks(refreshed_tasks);
+            }
+        }
+    }
+    catch (error) { console.error("Error removing task:", error); }
+
     return (
         <div className="task-card">
             <div className="header">
@@ -58,13 +71,16 @@ function TaskCard({ title, tag, initialTasks, domain, props}) {
             </div>
             <ul>
                 {tasks.map((task) => (
-                    <li key={task.id}>
+                    <li key={task.id} className='task-item'>
                         <input
                             type = "checkbox"
                             checked = {task.completed}
                             onChange = { () => handleCheckBoxChange(task.id, task) }
                         /> {" "}
-                        {task.name}
+                        <div className='task-content'>
+                            <span>{task.name}</span>
+                            <button className = "button" onClick={ () => removeTask(task.id) }>X</button>
+                        </div>
                     </li>
                 ))}
             </ul>
