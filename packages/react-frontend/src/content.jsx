@@ -36,6 +36,13 @@ function Content(props) {
 
 function TaskCard({ title, tag, initialTasks, domain, props}) {
     const [tasks, setTasks] = useState(initialTasks);
+    const [isPopoverOpen, setIsPopoverOpen] = useState(false);
+
+    var togglePopover;
+    togglePopover = () => {
+        setIsPopoverOpen(!isPopoverOpen);
+        console.log("HELLO", isPopoverOpen);
+    };
 
     var handleCheckBoxChange;
     try {
@@ -79,7 +86,7 @@ function TaskCard({ title, tag, initialTasks, domain, props}) {
                         /> {" "}
                         <div className='task-content'>
                             <span>{task.name}</span>
-                            <button className = "button" onClick={ () => removeTask(task.id) }>X</button>
+                            <button className = "button" onClick={ () => removeTask(task.id) }>remove</button>
                         </div>
                     </li>
                 ))}
