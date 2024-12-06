@@ -12,9 +12,6 @@ const Login = (props) => {
     const handleSubmit = async (event) => {
         event.preventDefault();
 
-        // const email = event.target.email.value;
-        // const password = event.target.password.value;
-
         const response = await fetch(`${host}/login`, {
             method: "POST",
             headers: { "Content-Type": "application/json", },
@@ -24,6 +21,10 @@ const Login = (props) => {
         const data = await response.json();
 
         if(data.token) {
+            
+            //checking to see if else block runs
+            console.log(data.token)
+            console.log("data token if ran")
             localStorage.setItem('token', data.token);
             navigate('/dashboard');
         }
@@ -32,8 +33,6 @@ const Login = (props) => {
 
     const handleSignup = async (event) =>{
         event.preventDefault();
-        // const email = event.target.email.value;
-        // const password = event.target.password.value;
 
         const response = await fetch(`${host}/signup`, {
             method: "POST",

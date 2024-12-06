@@ -29,6 +29,18 @@
   font-size: 30px;
 }
 
+.sidebar button {
+  width: 100%;
+  padding: 10px;
+  margin-top: 20px;
+  background-color: red;
+  color: white;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
 .sidebar a.active {
   text-decoration: underline;
 }
