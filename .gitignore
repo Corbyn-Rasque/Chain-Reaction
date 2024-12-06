@@ -402,3 +402,5 @@ FodyWeavers.xsd
 DS_Store
 .DS_Store
 *.DS_Store
+
+packages/express-backend/coverage

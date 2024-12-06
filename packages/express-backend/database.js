@@ -475,10 +475,10 @@ async function remove_list_item(list_item_id) {
 
 
 // Schedule
-async function get_free_time(user_id){ return; }
-async function add_free_time(user_id, schedule) { return; }
-async function update_free_time(schedule_id, schedule) { return; }
-async function remove_free_time(schedule_id) { return; }
+// async function get_free_time(user_id){ return; }
+// async function add_free_time(user_id, schedule) { return; }
+// async function update_free_time(schedule_id, schedule) { return; }
+// async function remove_free_time(schedule_id) { return; }
 
 
 export default{
@@ -505,10 +505,10 @@ export default{
 
   add_list_item,
   update_list_item,
-  remove_list_item,
+  remove_list_item//,
 
-  get_free_time,
-  add_free_time,
-  update_free_time,
-  remove_free_time
+  // get_free_time,
+  // add_free_time,
+  // update_free_time,
+  // remove_free_time
 }
