@@ -42,7 +42,7 @@ const Login = (props) => {
         });      
         
         if (response.status === 409) {
-            alert("Login failed: Please check your email and password.");
+            alert("Signup failed: User with this email already exists");
             return;
         }
         const data = await response.json();
