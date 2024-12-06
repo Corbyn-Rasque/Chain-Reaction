@@ -20,15 +20,16 @@ const Login = (props) => {
         
         const data = await response.json();
 
+        if (response.status === 401) {
+            alert("Login failed: Please check your email and password.");
+            return;
+        }
+
         if(data.token) {
-            
-            //checking to see if else block runs
-            console.log(data.token)
-            console.log("data token if ran")
             localStorage.setItem('token', data.token);
             navigate('/dashboard');
         }
-        else { alert('Login failed'); }
+        else { alert('Login failed: No Token Found'); }
     };
 
     const handleSignup = async (event) =>{
@@ -41,6 +42,11 @@ const Login = (props) => {
         });      
         
         const data = await response.json();
+
+        if (response.status === 409) {
+            alert("Login failed: Please check your email and password.");
+            return;
+        }
 
         if(data.token) {
             localStorage.setItem('token', data.token);
