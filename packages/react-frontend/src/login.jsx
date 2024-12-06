@@ -18,12 +18,12 @@ const Login = (props) => {
             body: JSON.stringify({ email, password }),
         });      
         
-        const data = await response.json();
 
         if (response.status === 401) {
             alert("Login failed: Please check your email and password.");
             return;
         }
+        const data = await response.json();
 
         if(data.token) {
             localStorage.setItem('token', data.token);
@@ -41,12 +41,11 @@ const Login = (props) => {
             body: JSON.stringify({ email, password }),
         });      
         
-        const data = await response.json();
-
         if (response.status === 409) {
             alert("Login failed: Please check your email and password.");
             return;
         }
+        const data = await response.json();
 
         if(data.token) {
             localStorage.setItem('token', data.token);
