@@ -18,7 +18,7 @@ export async function registerUser(req, res) {
             .genSalt(10)
             .then((salt) => bcrypt.hash(password, salt))
             .then(async (hashedPassword) => {
-                const id = await add_user({ email: email, password: hashedPassword })
+                const id = await db.add_user({ email: email, password: hashedPassword })
                     .then((id) => id)
                     .catch((error) => console.error(error));
 
