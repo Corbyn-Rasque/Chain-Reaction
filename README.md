@@ -26,3 +26,6 @@ Besides using `npm install` in both the root directory & `./packages/express-bac
 In `express-backend`, variables for `TOKEN_SECRET` and `SUPABASE_URI` will be necessary for bcrypt & jsonwebtoken.
 
 In `react-frontend`, the variable `VITE_API_URL` will need to be placed in both `.env` and `.env.production`, pointing to the `localhost:8000` and the live website, respectively.
+
+## UI Prototype (Figma)
+https://www.figma.com/design/TKUhPy1tBsxJMdjaaVtMoX/Chain-Reaction-Wireframe?node-id=0-1&t=1Zn5hObPgtTuZ0zv-1 
