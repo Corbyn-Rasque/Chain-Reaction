@@ -6,12 +6,14 @@ const host = import.meta.env.VITE_API_URL;
 
 const Login = (props) => {
     const navigate = useNavigate();
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
 
     const handleSubmit = async (event) => {
         event.preventDefault();
 
-        const email = event.target.email.value;
-        const password = event.target.password.value;
+        // const email = event.target.email.value;
+        // const password = event.target.password.value;
 
         const response = await fetch(`${host}/login`, {
             method: "POST",
@@ -28,6 +30,27 @@ const Login = (props) => {
         else { alert('Login failed'); }
     };
 
+    const handleSignup = async (event) =>{
+        event.preventDefault();
+        // const email = event.target.email.value;
+        // const password = event.target.password.value;
+
+        const response = await fetch(`${host}/signup`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json", },
+            body: JSON.stringify({ email, password }),
+        });      
+        
+        const data = await response.json();
+
+        if(data.token) {
+            localStorage.setItem('token', data.token);
+            navigate('/dashboard');
+        }
+        else { alert('SignUp failed!'); }
+    };
+
+
     return (
         <div>
             <div className = "top-header">
@@ -42,6 +65,7 @@ const Login = (props) => {
                         id="email"
                         name="email"
                         placeholder="Email"
+                        onChange={(e) => setEmail(e.target.value)}
                         required
                     />
                     <input
@@ -49,51 +73,17 @@ const Login = (props) => {
                         id="password"
                         name="password"
                         placeholder="Password"
+                        onChange={(e) => setPassword(e.target.value)}
                         required
                     />
                     <button type="submit">Login</button>
+                    <h3>- OR -</h3>
+                    <button type ="button" onClick={handleSignup}>Sign Up</button>
                 </form>
             </div>
         </div>
     );
 
-    // function handleChange(event) {
-    //     const { name, value } = event.target;
-    //     switch (name) {
-    //         case 'username': setCreds({ ...creds, username: value }); break;
-    //         case 'password': setCreds({ ...creds, password: value }); break;
-    //     }
-    // }
-
-    // function submitForm() {
-    //     props.handleSubmit(creds);
-    //     setCreds({ username: '', password: '' });
-    // }
-
-    // function loginUser(creds) {
-    //     const response = fetch(`${host}/login`, {
-    //         method: "POST",
-    //         headers: { "Content-Type": "application/json", },
-    //         body: JSON.stringify(creds),
-    //     })
-    //         .then((res) => {
-    //             if (res.status === 200) {
-    //                 response.json()
-    //                     .then((payload) => setToken(payload.token));
-    //                 setMessage('Login successful; auth token saved');
-    //             }
-    //             else {
-    //                 setMessage(`Login Error ${res.status}: ${res.data}`);
-    //             }
-    //         })
-    //         .catch((error) => {
-    //             setMessage(`Login Error: ${error}`);
-    //         });
-        
-    //     localStorage.setItem('token', response.json().token);
-
-    //     return response;
-    // }
  }
 
 export default Login;
