@@ -30,4 +30,4 @@ In `express-backend`, variables for `TOKEN_SECRET` and `SUPABASE_URI` will be ne
 In `react-frontend`, the variable `VITE_API_URL` will need to be placed in both `.env` and `.env.production`, pointing to the `localhost:8000` and the live website, respectively.
 
 ## UML Class Diagram & UI Protype
-These can be found in the Wiki pages.
+These can be found in the Wiki pages. Link: https://github.com/Corbyn-Rasque/Chain-Reaction/wiki
