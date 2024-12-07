@@ -32,8 +32,11 @@ In `react-frontend`, the variable `VITE_API_URL` will need to be placed in both 
 
 ### Testing
 Testing can be run in `./packages/express-backend` using `npm run test`.
+
 Code coverage of `database.js` can be run with `npx cross-env NODE_OPTIONS=--experimental-vm-modules jest --coverage`.
+
 Test File: `database.test.js`, located in `./packages/express-backend`.
+
 
 ## UML Class Diagram & UI Protype
 These can be found in the [Wiki pages](https://github.com/Corbyn-Rasque/Chain-Reaction/wiki).
