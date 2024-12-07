@@ -31,3 +31,9 @@ In `react-frontend`, the variable `VITE_API_URL` will need to be placed in both 
 
 ## UML Class Diagram & UI Protype
 These can be found in the [Wiki pages](https://github.com/Corbyn-Rasque/Chain-Reaction/wiki).
+
+## Demo Video
+A [demo video](https://youtu.be/edKFcK-abYY) that runs through the functioning features of the app.
+
+## Final Presentation Slides
+Our [Final Presentation](https://docs.google.com/presentation/d/1QYf1xTJ5PSmdSSS9e-OOHyFyYuP2Hoiw85T0SW0-sGo/edit?usp=sharing) slideshow (Using Google Slides).
