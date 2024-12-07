@@ -301,7 +301,7 @@ async function add_task(domain_id, task, group, order) {
                                        task.name, task.notes,
                                        task.do, task.due,
                                        task.completed]);
-      res = res.rowCount
+      // res = res.rowCount
     }
     else if (!order) {
       res = await db.query(cur_group, [group,
@@ -315,9 +315,10 @@ async function add_task(domain_id, task, group, order) {
                                       task.name, task.notes,
                                       task.do, task.due,
                                       task.completed]);
-      res = res.rowCount && res1.rowCount;
+      res = res1;
     }
-    if (res) { return true; }
+
+    if (res) { return res.rows; }
     else { return false; }
   }
   catch (error) {
@@ -432,7 +433,7 @@ async function add_list_item(task_id, list_item) {
   try {
     const res = await db.query(query, [task_id, list_item.name]);
 
-    if (res.rowCount) { return true; }
+    if (res.rowCount) { return res.rows; }
     else { return false; }
   }
   catch (error) {
